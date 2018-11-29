@@ -38,16 +38,24 @@ exports.config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
-    capabilities: [{
+    capabilities: [
+        {
+             // maxInstances can get overwritten per capability. So if you have an in-house Selenium
+        // grid with only 5 firefox instances available you can make sure that not more than
+        // 5 instances get started at a time.
+        // ===================
+          maxInstances: 1,
+          browserName: 'firefox',
+          firefoxOptions: {
+            args: [ '--disable-gpu', '--window-size=1280,800']
+          }
+        }
+      ],
+        //
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
-        maxInstances: 5,
-        //
-        browserName: 'firefox'
-    }],
-    //
-    // ===================
+        // ===================
     // Test Configurations
     // ===================
     // Define all options that are relevant for the WebdriverIO instance here
@@ -80,7 +88,7 @@ exports.config = {
     baseUrl: 'http://www.amazon.com',
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 10000,
+    waitforTimeout: 10000000,
     //
     // Default timeout in milliseconds for request
     // if Selenium Grid doesn't send response
